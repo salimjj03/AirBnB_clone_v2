@@ -4,6 +4,7 @@
 
 from os import getenv
 from sqlalchemy import create_engine
+from models.user import User
 from models.city import City
 from models.state import State
 from models.base_model import Base
@@ -42,7 +43,7 @@ class DBStorage:
             return dic
 
         else:
-            c_ls = ["City", "State"]
+            c_ls = ["City", "State", "User"]
             dic = {}
             for clss in c_ls:
                 cls = globals()[clss]
@@ -73,11 +74,8 @@ class DBStorage:
     def reload(self):
         """ create all tables in the database. """
 
-        from models.state import State
-        from models.city import City
         from sqlalchemy.orm import sessionmaker, scoped_session
         from sqlalchemy.ext.declarative import declarative_base
-        from models.base_model import Base
 
         Base.metadata.create_all(bind=self.__engine)
 
