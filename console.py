@@ -133,7 +133,7 @@ class HBNBCommand(cmd.Cmd):
             elif att[1].isdigit():
                 setattr(new_instance, att[0], int(att[1]))
 
-        storage.save()
+        storage.new(new_instance)
         print(new_instance.id)
         storage.save()
 
@@ -217,11 +217,13 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all(args).items():
                 if k.split('.')[0] == args:
+                    del v._sa_instance_state
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
+                del v._sa_instance_state
                 print_list.append(str(v))
 
         print(print_list)
