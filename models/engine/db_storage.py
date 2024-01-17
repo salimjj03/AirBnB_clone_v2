@@ -9,6 +9,7 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
+from models.amenity import Amenity
 from models.base_model import Base
 
 
@@ -45,7 +46,7 @@ class DBStorage:
             return dic
 
         else:
-            c_ls = ["City", "State", "User", "Place", "Review"]
+            c_ls = ["City", "State", "User", "Place", "Review", "Amenity"]
             dic = {}
             for clss in c_ls:
                 cls = globals()[clss]
