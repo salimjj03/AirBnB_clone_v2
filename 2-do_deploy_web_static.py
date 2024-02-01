@@ -19,15 +19,25 @@ def do_deploy(archive_path):
 
     c_file = archive_path.split("/")[-1]
     file = c_file.split(".")[0]
-    put(archive_path, "/tmp")
-    sudo("mkdir -p /data/web_static/releases/{}".format(file))
-    sudo("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
-         format(c_file, file))
-    sudo("cp -r  /data/web_static/releases/{}/web_static/* "
-         "/data/web_static/releases/{}".format(file, file))
-    sudo("rm -rf /data/web_static/releases/{}/web_static".format(file))
-    sudo("rm /tmp/{}".format(c_file))
-    sudo("rm -r /data/web_static/current")
-    sudo("ln -s /data/web_static/releases/{}/ "
-         "/data/web_static/current".format(file))
+    if put(archive_path, "/tmp").failed is True:
+        return False
+    if sudo("mkdir -p /data/web_static/releases/{}".
+            format(file)).failed is True:
+        return False
+    if sudo("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
+            format(c_file, file)).failed is True:
+        return False
+    if sudo("cp -r  /data/web_static/releases/{}/web_static/* "
+            "/data/web_static/releases/{}".format(file, file)).failed is True:
+        return False
+    if sudo("rm -rf /data/web_static/releases/{}/web_static".
+            format(file)).failed is True:
+        return False
+    if sudo("rm /tmp/{}".format(c_file)).failed is True:
+        return False
+    if sudo("rm -r /data/web_static/current").failed is True:
+        return False
+    if sudo("ln -s /data/web_static/releases/{}/ "
+            "/data/web_static/current".format(file)).failed is True:
+        return False
     return True
