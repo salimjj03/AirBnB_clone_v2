@@ -23,23 +23,23 @@ def do_deploy(archive_path):
     file = c_file.split(".")[0]
     if put(archive_path, "/tmp/").failed is True:
         return False
-    if sudo("mkdir -p /data/web_static/releases/{}".
+    if run("mkdir -p /data/web_static/releases/{}".
             format(file)).failed is True:
         return False
-    if sudo("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
+    if run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
             format(c_file, file)).failed is True:
         return False
-    if sudo("cp -r  /data/web_static/releases/{}/web_static/* "
+    if run("cp -r  /data/web_static/releases/{}/web_static/* "
             "/data/web_static/releases/{}".format(file, file)).failed is True:
         return False
-    if sudo("rm -rf /data/web_static/releases/{}/web_static".
+    if run("rm -rf /data/web_static/releases/{}/web_static".
             format(file)).failed is True:
         return False
-    if sudo("rm /tmp/{}".format(c_file)).failed is True:
+    if run("rm /tmp/{}".format(c_file)).failed is True:
         return False
-    if sudo("rm -rf /data/web_static/current").failed is True:
+    if run("rm -rf /data/web_static/current").failed is True:
         return False
-    if sudo("ln -s /data/web_static/releases/{}/ "
+    if run("ln -s /data/web_static/releases/{}/ "
             "/data/web_static/current".format(file)).failed is True:
         return False
     print("New version deployed!")
