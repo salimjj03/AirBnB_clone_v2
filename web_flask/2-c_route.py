@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """ This script Start my App."""
 
-from flask import Flask, escape
+from flask import Flask
+from markupsafe import escape
 
 
 app = Flask(__name__)
