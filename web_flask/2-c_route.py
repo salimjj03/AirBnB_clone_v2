@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ This script Start my App."""
 
-from flask import Flask
+from flask import Flask, escape
 
 
 app = Flask(__name__)
@@ -24,16 +24,8 @@ def hbnb():
 @app.route("/c/<text>", strict_slashes=False)
 def c(text):
     """ This used variable to dispay text """
-    txt = ""
-    if "_" in text:
-        for i in range(len(text)):
-            if text[i] == "_":
-                txt = txt+" "
-            else:
-                txt = txt+text[i]
-    else:
-        txt = text
-    return "c {}".format(txt)
+
+    return "c {}".format(escape(text.replace("_", " ")))
 
 
 if __name__ == "__main__":
