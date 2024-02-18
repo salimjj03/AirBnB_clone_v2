@@ -26,8 +26,24 @@ def hbnb():
 def c(text):
     """ This used variable to dispay text """
 
-    text = escape(text).replace("_", " ")
+    text = text.replace("_", " ")
     return "C {}".format(text)
+
+
+@app.route("/python", strict_slashes=False)
+@app.route("/python/<text>", strict_slashes=False)
+def python(text="is cool"):
+    """ This used variable to dispay text """
+
+    text = text.replace("_", " ")
+    return "Python {}".format(text)
+
+
+@app.route("/number/<int:n>", strict_slashes=False)
+def number(n):
+    """ This used variable to dispay text """
+
+    return "{} is a number".format(n)
 
 
 if __name__ == "__main__":
