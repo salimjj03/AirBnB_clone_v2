@@ -31,6 +31,8 @@ def c(text):
                 txt = txt+" "
             else:
                 txt = txt+text[i]
+    else:
+        txt = text
     return "c {}".format(txt)
 
 
