@@ -25,7 +25,7 @@ def hbnb():
 def c(text):
     """ This used variable to dispay text """
 
-    return "c {}".format(escape(text.replace("_", " ")))
+    return "c {}".format(escape(text).replace("_", " "))
 
 
 if __name__ == "__main__":
