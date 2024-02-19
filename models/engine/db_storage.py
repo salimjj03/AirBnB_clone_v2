@@ -86,3 +86,8 @@ class DBStorage:
                 sessionmaker(bind=self.__engine, expire_on_commit=False)
                 )
         self.__session = Session()
+
+    def close(self):
+        """ This method close the connection"""
+
+        self.__session.close()
